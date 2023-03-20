@@ -1,0 +1,506 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700&subset=cyrillic,greek,latin-ext");
+
+body#md {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: justify;
+  line-height: 170%;
+}
+
+.markdeepFooter{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 20px;
+  padding: 5px !important;
+}
+
+
+.tocAuxContents {
+  overflow-y: auto;
+  height: 0;
+}
+
+/* reset heading/link fonts to that of body */
+.md a,
+.md div.title,
+contents,
+.md .tocHeader,
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6,
+.md .nonumberh1,
+.md .nonumberh2,
+.md .nonumberh3,
+.md .nonumberh4,
+.md .nonumberh5,
+.md .nonumberh6,
+.md .shortTOC,
+.md .mediumTOC,
+.md .longTOC {
+  font-family: inherit;
+  overflow-x: hidden !important;
+}
+
+img.markdeep {
+  max-width: 350px;
+}
+
+.md .tocHeader {
+  border: none;
+  margin-top: 25px;
+  font-size: 100%;
+  font-family: inherit;
+  font-weight: 300;
+}
+
+.md .longTOC-show h1 {
+  margin-bottom: 0px;
+  font-size: x-large;
+}
+.md .longTOC-show h3 {
+  margin-top: -20px;
+  margin-bottom: 5px;
+}
+
+.md .longTOC .level1 {
+  font-weight: 300;
+  margin-bottom: -30px;
+}
+
+.md div.title,
+.md div.subtitle,
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  font-family: "Roboto", Arial, Helvetica, "sans serif";
+  font-weight: 300;
+}
+
+.md div.title {
+  font-size: 43px;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+.md div.subtitle {
+  text-align: left;
+  font-size: 115%;
+}
+
+.md pre.tilde {
+  background: #f0f0f0;
+}
+
+.md pre.output-error {
+  background: #d8a1a1;
+  color: white;
+  font-size: small !important;
+}
+
+.md pre.output-success {
+  background: #4c6c91;
+  color: white;
+  font-size: small !important;
+}
+
+.md div.afterTitles {
+  margin-top: 40px;
+  margin-left: -20px;
+  margin-right: -20px;
+  height: 0px;
+  border-bottom: 1px solid #000;
+}
+
+.md div.afterTitles + p {
+  margin-top: 30px;
+}
+
+.md h1 {
+  font-size: 175%;
+  margin-bottom: 25px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-top: 25px;
+  border-bottom: none;
+  border-top: none;
+  overflow: hidden;
+}
+
+.md h2 {
+  font-size: 150%;
+  border: none;
+}
+
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  font-size: 120%;
+}
+
+.md code {
+  font-size: 100%;
+  background: #eee;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.md code > .delete { font-weight: bold; background: rgb(216, 105, 105); margin-left: -20px; padding-left: 20px}
+
+.md code > .changed { font-weight: bold; background: rgb(255, 180, 119); margin-left: -20px; padding-left: 20px}
+
+.md .longTOC {
+  font-family: "Roboto", Arial, Helvetica, "sans serif";
+  font-weight: 300;
+}
+
+.md pre.listing {
+  font-size: small;
+}
+
+.md pre.listing {
+  width: 97%;
+  resize: none;
+}
+
+.md pre.listing code {
+  font-weight: unset;
+  background: none;
+  color: unset;
+}
+
+/* no numbering of headings */
+.md h1:before,
+.md h2:before,
+.md h3:before,
+.md h4:before,
+.md h5:before,
+.md h6:before {
+  content: none;
+}
+.md .tocNumber {
+  display: none;
+}
+
+@media screen {
+  body {
+    position: absolute;
+    left: 20px;
+    margin-right: 0px;
+    margin-left: 10px;
+    right: 0px;
+    overflow: auto;
+    max-width: none;
+  }
+
+  .md .longTOC {
+    display: block;
+    white-space: nowrap;
+    width: 200px;
+    border-right: 1px solid #777;
+    overflow-y: scroll;
+    font-size: 13px;
+    font-family: inherit;
+    background: #eee;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    z-index: 100;
+  }
+
+  .md .longTOC-show {
+    display: block;
+    white-space: nowrap;
+    width: fit-content;
+    min-width: 300px;
+    border-right: 1px solid #777;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 13px;
+    font-family: inherit;
+    background: #eee;
+    position: fixed;
+    left: 15px;
+    top: 0px;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px 10px;
+    z-index: 100;
+  }
+  .md .longTOC-show p {
+    margin-top: -20px;
+    padding-left: 20px;
+  }
+
+  .md .longTOC-show .authoring {
+    margin-top: 0px;
+    font-style: italic;
+  }
+
+  .md .longTOC-hide {
+    display: none;
+  }
+
+  .md .longTOC-visiblebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    font-size: 11px;
+    font-family: inherit;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px;
+    z-index: 101;
+    background: rgb(175, 174, 174);
+    color: black;
+  }
+
+  .longTOC-visiblebar:hover {
+    background: rgb(133, 133, 133);
+    color: white;
+    cursor: pointer;
+  }
+
+  .md .tocHeader {
+    display: block;
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+  .md .tocTop {
+    display: none;
+  }
+}
+
+.longTOC .current-ch,
+.longTOC-show .current-ch {
+  color: rgb(122, 76, 182) !important;
+}
+
+.current-ch-title {
+  font-weight: 900 !important;
+  font-size: xx-large;
+  color: rgb(51, 51, 51);
+}
+
+.current-ch-title h1 {
+  font-weight: 900;
+  font-size: xx-large;
+  color: rgb(51, 51, 51);
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #000;
+  justify-content: space-between;
+}
+
+.head-left {
+  font-style: italic;
+}
+
+.head-right {
+  font-weight: bold;
+}
+
+.authoring {
+  color: #777;
+}
+
+.authoring span {
+  display: block;
+  font-style: italic;
+}
+
+.authoring span:first-child {
+  font-weight: bolder;
+}
+
+.section-title{
+  display: inline;
+}
+
+.section-content.show {
+  height: auto;
+}
+
+.section-content.hide {
+  display: none;
+  opacity: 1;
+  transform: rotateY(180deg);
+  transition: all 0s linear;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+.secshowhide {
+  border-radius: 5px;
+}
+
+button {
+  background-color: rgb(111,111,111) !important;
+  color : white !important;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+  cursor: pointer;
+}
+
+button:hover{
+  color: rgb(111,111,111) !important;
+  background-color : rgb(255, 255, 255) !important;
+  font-weight: bold;
+}
+
+.mediumTOC-visiblebutton{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position:fixed;
+  top : 10px;
+  left : 10px;
+  font-size: xx-large;
+  background-color: rgb(211, 211, 211);
+  padding: 5px;
+  color: rgb(36, 36, 36);
+  border-radius: 3px;
+  border: 3px solid rgb(36, 36, 36);
+  opacity: 0.3;
+}
+
+.mediumTOC-visiblebutton:hover{
+  opacity: 1;
+  background-color: rgb(85, 85, 85);
+  color:rgb(211, 211, 211);
+  cursor: pointer;
+}
+
+.mediumTOC-hide{
+  display: none;
+}
+
+.mediumTOC-show{
+  display: block;
+}
+
+.mediumTOC.mediumTOC-sh{
+  position: fixed;
+  top : -5px;
+  left : 18px;
+  background-color: rgb(218, 216, 216);
+  opacity: 0.95;
+  max-width: 350px;
+  max-height: 350px;
+  padding: 20px;
+  border-radius: 3px;
+  border: 3px solid rgb(36, 36, 36);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+
+
+.mediumTOC.mediumTOC-sh a{
+  color: rgb(37, 124, 150);
+}
+
+.mediumTOC.mediumTOC-sh #tocContents b{
+  color: rgb(80, 80, 80);
+  margin: 10px 0 0 0;
+  display: inline-block;
+}
+
+.mediumTOC.mediumTOC-sh b + br + a.level1{
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.mediumTOC.mediumTOC-sh a.level2 + br + a.level1{
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.mediumTOC.mediumTOC-sh #tocContents a.level2{
+  color: #914c4c;
+}
+
+.mediumTOC.mediumTOC-sh #tocContents{
+  padding-left: 15px;
+  margin-top: -10px;
+} 
+
+.mediumTOC-sh{
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+}
+
+.mediumTOC.mediumTOC-sh *{
+  margin: 0;
+  padding: 0;
+}
+
+.mediumTOC.mediumTOC-sh h1{
+  font-weight: 200;
+  font-size: x-large;
+  padding: 15px 0;
+}
+
+.mediumTOC.mediumTOC-sh h3{
+  padding: 5px 0;
+}
+
+.tocInsertion{
+  position: absolute;
+  top: 0;
+  width: 0; height: 0%;
+}
+
+.mediumTOC.mediumTOC-sh .tocHeader{
+  padding: 13px 0;
+}
+
+ol {
+  counter-reset: olliitem;
+}
+
+li.number {
+  counter-increment: olliitem;
+}
+
+li.number::marker{
+  content: counters(olliitem, ".") + ".";
+}
+
+ol ol ol ol {
+  counter-reset: olliitem2;
+}
+
+ol ol ol ol li.number{
+  counter-increment: olliitem2;
+}
+
+ol ol ol ol li.number::marker{
+  content: counters(olliitem2, ".", lower-roman);
+}

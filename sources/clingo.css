@@ -1,0 +1,84 @@
+.clingo-code{  
+    width: 97%;
+    resize: none;
+    font-size: small;
+    background: #f0f0f0;
+    margin: 0 0 0 0;
+    page-break-inside: avoid;
+    counter-reset: line;
+    overflow-x: auto;
+    text-align: justify;
+    font-family: Menlo,Consolas,monospace;
+    line-height: 140%;
+    padding: 5px 0 5px 20px;
+}
+
+.clingo-code2{  
+    width: 97%;
+    resize: none;
+    font-size: small;
+    background: none;
+    margin: 0 0 0 0;
+    page-break-inside: avoid;
+    counter-reset: line;
+    overflow-x: auto;
+    text-align: justify;
+    font-family: Menlo,Consolas,monospace;
+    line-height: 140%;
+    padding: 5px 0 5px 20px;
+}
+
+.clingo-query{
+    position: relative;
+    width: 100%;
+    resize: none;
+    font-size: small;
+    border: 1px solid #CCC;
+    padding: 5px 0 5px 20px;
+    margin: 0 0 0 0;
+    page-break-inside: avoid;
+    counter-reset: line;
+    overflow-x: auto;
+    text-align: justify;
+    font-family: Menlo,Consolas,monospace;
+    line-height: 140%;
+  
+}
+
+.clingo-response-correct{
+    width: 97%;
+    resize: none;
+    font-size: small;
+    background: #f0f0f0;
+    margin: 0 0 0 0;
+    page-break-inside: avoid;
+    counter-reset: line;
+    overflow-x: auto;
+    text-align: justify;
+    font-family: Menlo,Consolas,monospace;
+    background: #5574a3;
+    color: white;
+    padding: 5px 0 5px 20px;
+}
+
+.clingo-response-error{
+    width: 97%;
+    resize: none;
+    font-size: small;
+    background: #f0f0f0;
+    margin: 0 0 0 0;
+    page-break-inside: avoid;
+    counter-reset: line;
+    overflow-x: auto;
+    text-align: justify;
+    font-family: Menlo,Consolas,monospace;
+    background: #a35555;
+    color: white;
+    padding: 5px 0 5px 20px;
+}
+
+.clingo-query:hover{
+    background-color: rgb(255, 240, 101) !important;
+    cursor: pointer;
+}
+

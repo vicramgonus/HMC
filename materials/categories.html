@@ -1,0 +1,306 @@
+<meta charset="utf-8" emacsmode="-*- markdown -*-"> 
+<link rel="stylesheet" href="../sources/journal.css">
+<script   src="../sources/jquery-2.2.4.min.js"></script>
+<script src="../project.js"></script>
+<link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+<script src="https://tikzjax.com/v1/tikzjax.js"></script>
+
+<br>
+
+<div class="current-ch-title">
+Teoría de Categorías
+</div>
+
+<div class="current-ch-subtitle">
+FUNDAMENTOS DE CIENCIAS DE LA COMPUTACIÓN
+</div>
+
+<div class="authoring">
+Hedonismo, Matemáticas y Computación
+</div>
+
+
+!!! WARNING: Summary
+   La teoría de categorías es un campo que incide cada vez con más frecuencia en la conciencia de muchos informáticos, especialmente los que se interesan por los lenguajes de programación y las especificaciones formales. Pero sigue habiendo desacuerdo sobre la importancia real de la teoría de categorías, incluso entre los especialistas en estas áreas. Algunos la tachan de "tontería abstracta", mientras que para otros se ha convertido en una herramienta importante. Peor aún para los no iniciados, sólo existen unos pocos libros de texto introductorios sobre el tema, y ninguno de ellos es de fácil lectura. Aunque la literatura sobre teoría de categorías es más accesible que hace unos años, todavía no hay una buena manera de hacerse una idea con un esfuerzo modesto. Aquí trataremos de dar una visión general e introductoria a La Teoría de Categorías y a su papel dentro de las Ciencias de la Computación.
+
+
+
+<div class="section" id="sec1">
+<div class="section-title">
+<h2> Introducción </h2>
+</div>
+
+<div class="section-content hide">
+
+La Teoría de categorías es una rama relativamente joven de las matemáticas puras, originada a partir del área de Topología Algebraica, que la mayoría de los informáticos considerarían esotérica. Sin embargo, su influencia se deja sentir en muchos ámbitos de la informática teórica: diseño de lenguajes de programación tanto funcionales como imperativos, técnicas de implementación de lenguajes funcionales,  modelos semánticos de lenguajes de programación, semántica de la concurrencia, entre otros.  semántica de los lenguajes de programación, semántica de la concurrencia, teoría de tipos y polimorfismo, lenguajes de especificación, semántica algebraica, lógica constructiva y teoría de autómatas. 
+
+A primera vista, la amplitud de esta lista señala un aspecto fundamental: la teoría de categorías no está orientada a trabajar en entornos u objetos concretos.  En efecto, es un marco fundacional en el mismo sentido que la teoría de conjuntos o la teoría de grafos. De hecho, se podría decir que es la "Abstracción de lo abstracto". Los beneficios, resultados trasversales; el coste, por supuesto, conceptos más difíciles de comprender y resultados, aparentemente, superficiales.
+
+Antes de pasar al estudio formal de la Teoría de Categorías queremos dar una visión más filosófica de la necesidad de este área. Tradicionalemente se ha hablado de dos métodos fundamentales para la caracterización de los objetos del mundo (el conocimiento en sí mismo): *Análisis vs Síntesis*. 
+
+El primero trata de caracterizar sus elementos por los elementos internos que lo forman. Buena parte del conocimiento clásico y actual corresponde a este enfoque: Química (modelos atómicos), Biología y Medicina (anatomía), Letras (Análisis morfológico), etcétera. El segundo, por su parte, se basa en la caracterización de sus elementos por las interrelaciones del objeto con los demás objetos. Disciplinas como la Física (Física de partículas), la Biología (Evolución de Especies, Análisis funcional de sistemas), Economía y Sociedad (Análisis de Mercados y Comportamiento Social), entre otros. En el ámbito de la computación y de los Sistemas Automáticos de Aprendizaje, también se dan ambos enfoques; y lo hacen precisamente en dos de los métodos de mayor éxito el Aprendizaje Profundo (extracción de características) y el Aprendizaje por Refuerzo (recompensas derivadas del comportamiento/interacción con el medio).
+
+La Matemática, por descontado, no es una excepción. Aunque con discusión, podríamos tomar como elemento fundamental de la Matemática al *conjunto* y las *funciones* como las interrelaciones entre esos elementos. Así pues tendríamos como método de Análisis , la Teoría de Conjuntos; ¿y cómo método de sístesis?. Lo que probablemente buscamos es una visión "más pura" de las funciones: una teoría de las funciones en sí mismas, no una teoría de las funciones derivadas de los conjuntos. ¿Qué es entonces una teoría pura de las funciones? Respuesta: la Teoría de Categorías.
+
+</div>  
+</div>
+
+<div class="section" id="sec2">
+<div class="section-title">
+<h2> Categorías y Diagramas </h2>
+</div>
+
+<div class="section-content hide">
+
+<!-- Relleno -->
+
+El siguiente ejemplo muestra que normalmente la demostración no es absolutamente trivial, como en el ejemplo anterior (incluso, en ejemplos más complejos, el trabajo puede ser considerable).
+
+!!!code: Ejemplo - Poset
+   Una relación $\leq^{P}$ sobre un conjunto $P$ se dice ser un orden, si se verifican las propiedades:
+      - Reflexiva: $\forall x \in P: x \leq^{P} x$
+      - Antisimétrica: $\forall x, y \in P: (x \leq^{P} y) \land (x \neq y) \to \neg \, y \leq^{P} x$ 
+      - Transitiva: $\forall x, y, z \in P: (x \leq^{P} y) \land (y \leq^{P} z) \to x \leq^{P} z$
+
+   El orden se dice total si además se verifica que todo par de elementos están relacionados, $\forall x, y \in P: (x \leq^{P} y) \vee (y \leq^{P} x)$. Si no se requiere esta propiedad, se dice orden parcial. 
+
+   Una función $f : P \to Q$ se dice orden-conservativa si se verifica que el orden para todo par de elementos de $P$ es equivalente al orden para sus correspondientes imágenes en $Q$. Formalmente si se verifica $\forall x,y \in P : x \leq^{P} y \to f(x) \leq^{Q} f(y)$.
+
+   Consideremos $\mathit{Poset}$ tal que sus elementos son todos los conjuntos parcialmente ordenados, pares $(\mathcal(S), \leq^{\mathcal{S}})$, y tiene como morfismos todas las funciones orden-conservativas. Probemos entonces que $\mathit{Poset}$ es una categoría.
+
+      1. Un objeto en $Poset$ es un conjunto $P$ con una relación $\leq^{P}$ reflexiva, transitiva y antisimétrica definida sobre pares de elementos de $P$.
+
+      2. Un morfismo $f : (P, \leq^{P}) \to  (Q, \leq^{Q})$ en $Poset$ es una función total orden-conservativa de $P$ a $Q$.
+
+      3. Para cada función orden-conservativa con dominio $P$ y codominio $Q$, $dom(f) =  (P, \leq^{P})$ , $codom(f) =  (Q, \leq^{Q})$, y $F \in \mathbf{Poset}((P, \leq^{P}), (Q, \leq^{Q}))$.
+
+      4. La composición de una función total orden-conservativa $f : P \to Q$ con otra función total orden-conservativa $g : Q \to R$ es una función total $g \circ f$ de $P$ a $R$. Además, si $x \leq^{P} y$, como $f$ es orden-conservativa, $f(x) \leq^{Q} f(y)$; a su vez, como $g$ preserva el orden de $Q$, entonces $g(f(x)) \leq^{R} g(f(y))$, luego $g \circ f$ es también orden conservativa. La composición  de funciones orden-preservativas es asociativa, dado que una función orden-conservativa sobre conjuntos parcialmente ordenados es, en particular, una función sobre conjuntos, y la composición de funciones sobre conjuntos es asociativa.
+      
+      5. Para cada orden parcial $(P, \leq^{P})$, la función identidad en $P$, $id_P$, es orden-conservativa y cumple, trivialmente, las ecuaciones de la ley de identidad.
+
+
+En general, los objetos de muchas categorías pueden considerarse "conjuntos con estructura", y los morfisfos, "funciones que preservan la estructura".  Estas categorías suelen denominarse *categorías concretas*. Desde esta perspectiva, es fácil ver por qué la teoría de categorías se describe a menudo como una generalización del *Álgebra abstracta*, que estudia las propiedades comunes de las estructuras algebraicas, pero también de otros campos, como la Topología, que también estudia características "estables" de ciertos objetos.  La siguiente tabla enumera algunas de las categorías que se ajustan a esta intuición:
+
+|  CATEGORÍA  |    OBJETOS    |    MORFISMOS    |
+|:-----------:|:-------------:|:---------------:|
+|Set | Todos los conjuntos | Todas las funciones totales entre conjuntos|
+|FinSet | conjuntos finitos | funciones entre conjuntos finitos|
+|Pfn | Conjuntos | Funciones parciales entre conjuntos|
+|Rel | Conjuntos | Relaciones binarias entre conjuntos|
+|Vect | Espacios vectoriales | Transformaciones lineales|
+|Grp | Grupos  | Homomorfismos de grupos |
+|Mon | Monoides  | Homomorfismos de monoides |
+|Poset | Conjuntos parcialmente ordenados  | Funciones monótonas |
+|CPO | Conjuntos totalmente ordenados | Funciones continuas |
+|Met | Espacios métricos  | Mapas de contracción |
+|Top | Espacios topológicos  | Funciones continuas |
+
+
+
+Las categorías concretas constituyen una clase importante, pero hay muchas otras categorías interesantes. Por ejemplo, he aquí algunas categorías finitas útiles: 
+
+!!!code
+   La categoría 0 no tiene objetos ni flechas. Las leyes de identidad y asociatividad se cumplen vacuamente. 
+
+!!!code
+   La categoría 1 tiene un objeto y una flecha. Por la ley de identidad, la flecha debe ser la identidad del objeto. La composición de esta flecha consigo misma sólo puede ser sí misma, lo que satisface las leyes de identidad y asociatividad. (Nótese que no nos hemos molestado en especificar la identidad precisa del objeto o de la flecha. Lo que importa son sólo las propiedades algebraicas del objeto y la flecha, cualesquiera que sean, y están totalmente determinadas por las leyes de la categoría.
+
+!!!code
+   La categoría 2 tiene dos objetos, dos flechas de identidad y una flecha de un objeto a otro. De nuevo, no importa lo que representen los objetos y las flechas, pero para para que sea más fácil hablar de ellos, podríamos llamar a los objetos $A$ y $B$ y a la flecha de no identidad flecha $f$. Sólo hay una manera de definir la composición; entonces es fácil comprobar que se cumplen las leyes de identidad y asociatividad. 
+
+!!!code
+   Ejemplo La categoría 3 tiene tres objetos (llamémoslos $A$, $B$ y $C$), tres flechas identidad y otras tres flechas $f: A \to B$, $g: B \to C$, y $h : A \to C$. (De nuevo, la composición sólo puede definirse de una manera y se cumplen ambas leyes). 
+   
+El último ejemplo empieza a ser lo bastante complicado como para que resulte difícil entenderlo a partir de una simple lista de objetos y flechas. Para que estas descripciones sean más manejables, los teóricos de las categorías suelen utilizar un estilo gráfico de presentación, los *diagramas*.
+
+!!! def: Def. 2- Diagramas
+   Un diagrama en una categoría $\mathcal{C}$ es una colección de vértices y aristas dirigidas, etiquetadas consistentemente con objetos y flechas de $\mathcal{C}$ (donde por "consistentemente" queremos decir que si una arista del diagrama está etiquetada con la flecha $f$ y $f$ tiene dominio $A$ y codominio $B$, entonces los puntos finales de esta arista deben estar etiquetados con $A$ y $B$).
+
+En esta representación, las categorías 2 y 3 aparecen de la siguiente manera:
+
+<center>
+<script type="text/tikz">
+   \begin{tikzpicture}
+    \node at (0.1,0) (A) {A};
+    \node at (0,0) (Al) {};
+    \node at (0.2,0) (Ar) {};
+    \node at (2,0) (B) {B};
+    \node at (1.9,0) (Bl) {};
+    \node at (2.1,0.1) (Br) {};
+    \draw [->] (Ar) to node[midway,above] {$f$} (Bl);
+    \draw [->] (Ar) to[looseness=2] node[midway,above] {$id_A$} (A);
+    \draw [->] (Br) to[looseness=2] node[midway,above] {$id_B$} (B);
+
+
+    \node at (4.1,0) (X) {A};
+    \node at (4,0) (Xl) {};
+    \node at (4.2,0) (Xr) {};
+
+    \node at (5.5,1) (Y) {B};
+    \node at (5.4,1) (Yl) {};
+    \node at (5.6,1.1) (Yr) {};
+
+    \node at (6.8,0) (Z) {C};
+    \node at (6.7,0) (Zl) {};
+    \node at (6.9,0) (Zr) {};
+
+    \draw [->] (Xr) to node[midway,above] {$f$} (Yl);
+    \draw [->] (Yr) to node[midway,above] {$g$} (Zl);
+    \draw [->] (Xr) to node[midway,above] {$h$} (Zl);
+    \draw [->] (Xr) to[looseness=2] node[midway,above] {$id_A$} (X);
+    \draw [->] (Yr) to[looseness=2] node[midway,above] {$id_B$} (Y);
+    \draw [->] (Zr) to[looseness=2] node[midway,above] {$id_C$} (Z);
+   \end{tikzpicture}
+ </script>
+</center>
+
+(La mayoría de los autores difuminan la distinción entre los vértices y las aristas de un diagrama y los objetos y flechas con los que están etiquetados. Además, no es habitual que un diagrama muestre la totalidad de una categoría, como hacen estos dos. Los diagramas se suelen utilizar para ilustrar alguna configuración de un pequeño número de objetos y flechas de interés particular dentro de una categoría. categoría).
+
+Nótese que como $f$, $g$ y $h$ son las únicas flechas no-identidad de 3, debe darse el caso de que $g \circ f = h$. (¿Por qué?)
+
+Los diagramas se utilizan en la Teoría de Categorías no sólo para visualizar categorías, sino también (y mucho más importante) para enunciar y demostrar propiedades de construcciones categóricas. Tales propiedades se expresan a menudo diciendo que un diagrama concreto "conmuta".
+
+!!!def: Def. 3
+   Se dice que un diagrama de una categoría $\mathcal{C}$ es conmutativo si, para cada par de vértices $X$ e $Y$, todos los caminos del diagrama de $X$ a $Y$ son iguales (en el sentido de que cada camino del diagrama determina una flecha compuesta y estas compuestas son iguales en $\mathcal{C}$). 
+
+Por ejemplo, decir que el siguiente diagrama conmuta es exactamente lo mismo que decir que se cumple $f \circ g' = g \circ f'$. 
+
+<center>
+   <script type="text/tikz">
+      \begin{tikzpicture}
+         \node at (0,0) (W) {W};
+         \node at (0,2) (X) {X};
+         \node at (4,2) (Z) {Z};
+         \node at (4,0) (Y) {Y};
+
+         \draw [->] (W) to node[midway,above] {$f$} (Y);
+         \draw [->] (Z) to node[midway,right] {$g$} (Y);
+         \draw [->] (X) to node[midway,below] {$f'$} (Z);
+         \draw [->] (X) to node[midway,left] {$g'$} (W);
+      \end{tikzpicture}
+    </script>
+</center>
+
+Un refinamiento útil de esta convención es exigir que dos trayectorias sean iguales sólo cuando uno de ellos es más largo que una sola flecha. Así, la conmutatividad del diagrama: 
+
+<center>
+   <script type="text/tikz">
+      \begin{tikzpicture}
+         \node at (0,0.5) (X) {X};
+         \node at (0.1, 0.6) (Xnw) {};
+         \node at (0.1,0.4) (Xsw) {};
+         \node at (2,0.5) (Y) {Y};
+         \node at (1.9,0.6) (Yne) {};
+         \node at (1.9,0.4) (Yse) {};
+         \node at (4,0.5) (Z) {Z};
+
+         \draw [->] (Xnw) to node[midway,above] {$f$} (Yne);
+         \draw [->] (Xsw) to node[midway,below] {$g$} (Yse);
+         \draw [->] (Y.east) to node[midway,below] {$h$} (Z.west);
+      \end{tikzpicture}
+    </script>
+</center>
+
+implica que $h \circ f = h \circ g$, pero no $f=g$.
+
+
+Cuando una propiedad se enuncia en términos de diagramas conmutativos, las pruebas que implican esa propiedad a menudo se pueden dar directamente por "seguimiento de diagramas". La siguiente demostración muestra, de forma sencilla, la técnica. (Obsérvese cómo las ecuaciones corresponden a caminos en el diagrama, y cómo estos caminos se transforman mediante la sustitución de un camino a través de un subdiagrama conmutativo por otro).
+
+!!!code: Ejemplo
+   Si los dos cuadrados interiores del siguiente diagrama son conmutativos, entonces también lo es el rectángulo exterior.
+   <center>
+      <script type="text/tikz">
+         \begin{tikzpicture}
+            \node at (0,0) (U) {$\bullet$};
+            \node at (0,2) (V) {$\bullet$};
+            \node at (2,2) (W) {$\bullet$};
+            \node at (4,2) (X) {$\bullet$};
+            \node at (4,0) (Y) {$\bullet$};
+            \node at (2,0) (Z) {$\bullet$};
+   
+            \draw [->] (V) to node[midway,above] {$f$} (W);
+            \draw [->] (V) to node[midway,left] {$a$} (U);
+
+            \draw [->] (W) to node[midway,above] {$f'$} (X);
+            \draw [->] (W) to node[midway,left] {$b$} (Z);
+
+            \draw [->] (X) to node[midway,left] {$c$} (Y);
+            \draw [->] (U) to node[midway,below] {$g$} (Z);
+            \draw [->] (Z) to node[midway,below] {$g'$} (Y);
+         \end{tikzpicture}
+       </script>
+   </center>
+
+   *Demostración*: $$\begin{array}{c c l l}
+   (g' \circ g) \circ a & = & g' \circ (g \circ a) & \textit{(asoc.)}\\ 
+   & = & g' \circ (b \circ f) & \textit{(conmut. cuad. izq.)}\\ 
+   & = & (g' \circ b) \circ f & \textit{(asoc.)}\\ 
+   & = & (c \circ f') \circ f & \textit{(conmut. cuad. der.)}\\ 
+   & = & c \circ (f' \circ f) & \textit{(asoc.)}\\ 
+   \end{array}$$
+
+Una clase diferente de categorías se obtiene considerando una estructura algebraica individual formando una categoría.
+
+!!!code: Ejemplo
+   Un Poset $(P, \leq^{P})$ da lugar a una categoría cuyos objetos son los elementos de $P$. Entre cada par de objetos $x \leq^{P} y \in P$ hay una única flecha (que representa este hecho). No hay flecha entre dos objetos cuando $x \not\leq^{P} y$. La composición de flechas es claramente asociativa (ya que hay como máximo una flecha entre cualquier par de objetos). La ley de identidad de la definición 1 corresponde ahora a la condición de reflexividad para los órdenes parciales, mientras que la existencia de flechas compuestas corresponde a la transitividad. En realidad, la condición de antisimetría no es necesaria: de hecho, todo preorden (conjunto con relación transitiva y reflexiva) da lugar a una categoría.
+   
+!!!code: Ejemplo
+   Un monoide $(M, \cdot, e)$ puede representarse mediante una categoría con un único objeto. Los elementos de $M$ se representan por flechas de este objeto a sí mismo, el elemento de identidad $e$ se representa por la flecha de identidad, y la operación $\cdot$ se representa por composición de flechas. A la inversa, cualquier categoría con un único objeto da lugar a un monoide. (No no nos molestaremos en comprobar los axiomas de la categoría para este y futuros ejemplos. No obstante, instamos al lector a hacerlo).
+
+Muchas ramas de las matemáticas, además del álgebra, han demostrado ser susceptibles de tratamiento categórico. De particular interés para la informática es el nuevo campo de la "lógica categórica", que surge de la siguiente observación. 
+
+!!!code
+   Por un giro de perspectiva, podemos llamar a los objetos de una categoría arbitraria fórmulas y a las flechas pruebas. Una flecha $f: A \to B$ se considera una prueba de la implicación $A \to B$. En particular, la flecha de identidad $id_A : A \to A$ es una instancia del axioma de reflexividad y la composición de flechas $\frac{f : A \to B, \, g : B \to C}{g \circ f: A \to C}$ una regla de inferencia (transitividad de la implicación). 
+</div>  
+</div>
+
+<div class="section" id="sec3">
+<div class="section-title">
+<h2> Monomorfismos, Epimorfismos e Isomorfismos </h2>
+</div>
+   
+<div class="section-content hide">
+Cuando razonamos sobre conjuntos y funciones, a menudo nos interesan las funciones con propiedades especiales, como ser inyectivas (uno a uno) o suprayectivas o definir un isomorfismo. Los análogos apropiados de estos conceptos también desempeñan un papel importante en el razonamiento categórico.
+
+!!!def: Monomorfismos
+   Un morfismo $f : B \to C$ en una categoría $\mathcal{C}$ es un *monomorfismo* si para cualquier par de $\mathcal{C}$-morfismos,  $g : A \to B$ y $h : A \to B$ con el mismo dominio y con codominio $B$, la igualdad $f \circ g = f \circ h$ implica que $g = h$.
+
+!!!code: Ejemplo 
+   Probar que, en la categoría ***Set*** los morfismos son, exactamente, las funciones inyectivas.
+
+   *Demostración*. Sea $f: B \to C$ una función inyectiva. Supongamos que no es monomorfismo. Sean $g, h : A \to B$ tales que $f \circ g = f \circ h$ pero $g \neq h$. Entonces existe algún elemento $a \in A$ para el que $g(a) \neq h(a)$. Pero entonces como $f$ es inyectiva, $f(g(a)) \neq f(h(a))$, luego $f \circ g \neq f \circ h$. $\boxed{\rightarrow \leftarrow}$.
+
+   Probemos ahora el recíproco. Sea $f : B \to C$ un monomorfismo. Supóngase $f$ no inyectiva, entonces existen dos elementos $x \neq y$ en $B$ tal que $f(x)=f(y)$. Sea $\{a\}$, y dos morfismos $g : A \to B$ y $h : A \to B$ tal que $g(a)=b$ y $h(a)=b'$. Ahora $f(g(a))=f(b)=f(b')=f(h(a))$ y $g \neq h$, luego $f$ no es monomorfismo.   $\boxed{\rightarrow \leftarrow}$.
+   
+
+
+!!!def: Epimorfismos
+   Un morfismo $f : A \to B$ en una categoría $\mathcal{C}$ es un *epimorfismo* si para cualquier par de $\mathcal{C}$-morfismos,  $g : B \to C$ y $h : B \to C$ con el mismo codominio y con dominio $B$, la igualdad $g \circ f = h \circ f$ implica que $g = h$.
+
+
+!!!code: Ejemplo
+   Probar que los epimorfismos en la categoría ***Set*** corresponden a las funciones sobreyectivas. 
+   
+   *Demostración*. Sea $f: A \to B$ una función sobreyectiva. Supongamos que no es epimorfismo. Sean $g, h : B \to C$ tales que $g \circ f = h \circ f$ pero $g \neq h$. Entonces existe algún elemento $b \in B$ para el que $g(b) \neq h(b)$. Pero entonces como $f$ es sobreyectiva, existe un elemento $a \in A$ tal que $f(a)=b$ y $g(f(a)) \neq h(f(a))$, luego $g \circ f \neq h \circ f$. $\boxed{\rightarrow \leftarrow}$.
+
+   Probemos ahora el recíproco. Sea $f : A \to B$ un epimorfismo. Supóngase $f$ no sobreyectiva, entonces existe un elemento $b \in B$ tal que $ b \not\in f(A) $. Sean los morfismos $g : B \to C$ y $h : B \to C$  tal que $g(x)=1$ y $h(x)=1 \iff x \in f(A)$. Por una parte, es claro que $g(f(a))= 1 = h(f(a))$, pero por otr, $g(b)=1 \neq 0 = h(b)$, luego $g \neq h$. Lo cual contradice la hipótesis de ser $f$ un epimorfismo. $\boxed{\rightarrow \leftarrow}$.
+
+En el rico mundo de las categorías, los análogos de las funciones inyectivas y suryectivas sobre conjuntos no son suficientes para describir toda la gama de tipos especiales de flechas. Éstas son las más comunes, pero muchos libros de texto definen otras: retracciones, secciones, flechas constantes, flechas coconstantes, flechas cero, bimorfismos, subobjetos, objetos cociente, etcétera. Aquí nos limitaremos a mencionar sólo una variedad más.
+
+
+!!!def: Isomorfismo
+   Un morfismo $f : A \to B$ es un isomorfismo, si existe otro $g : B \to A$ tal que $f \circ g = id_B$ y $g \circ f = id_A$. Se dice que los objetos $A$ y $B$ son isomorfos si existe un isomorfismo entre ellos.
+
+!!!code: Ejemplo
+   Un grupo es esencialmente lo mismo que una categoría de un objeto donde cada flecha es un isomorfismo.
+</div>  
+</div>
+
+<div class="tocAuxContents" id="tocAuxAfter"></div>
+
+
+
+<style class="fallback">body{visibility:hidden;}</style>
+<script>markdeepOptions={tocStyle:'mediumSH', routeHead : "../", curID : 1};</script>
+<!-- Markdeep: --><script src="../sources/markdeep.min.js" charset="utf-8"></script>
+
